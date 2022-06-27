@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Installing csharpier..."
+dotnet tool install csharpier --global
+echo "Done!"
+
+echo "Formatting files..."
+dotnet csharpier Movement.Unity/Assets
+echo "Done!"
