@@ -13,6 +13,12 @@ namespace _2d
         [Tooltip("The speed by which to move the player")]
         public float Speed = 5;
 
+        /// <summary>
+        /// TODO implement jump
+        /// </summary>
+        [Tooltip("The speed at which the player jumps")]
+        public float JumpSpeed = 5;
+
         [SerializeField]
         private Animator playerAnimator;
 
