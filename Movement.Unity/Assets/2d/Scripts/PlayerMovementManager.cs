@@ -9,15 +9,23 @@ namespace _2d
         [Tooltip("The Player transform to move")]
         [SerializeField]
         private Transform Player;
+
         [Tooltip("The speed by which to move the player")]
         public float Speed = 5;
 
+        [SerializeField]
+        private Animator playerAnimator;
+
         private float horizontalMovement;
 
-        public bool IsMovingRight { get => this.horizontalMovement > 0; }
-        public bool IsMovingLeft { get => this.horizontalMovement < 0; }
-
-
+        public bool IsMovingRight
+        {
+            get => this.horizontalMovement > 0;
+        }
+        public bool IsMovingLeft
+        {
+            get => this.horizontalMovement < 0;
+        }
 
         // Update is called once per frame
         void Update()
@@ -26,6 +34,10 @@ namespace _2d
             var horizontalInput = Input.GetAxis("Horizontal");
             this.horizontalMovement = this.Speed * horizontalInput * Time.deltaTime;
             this.Player.position += this.Player.right * horizontalMovement;
+
+            this.playerAnimator.SetBool("HasHorizontalInput", horizontalInput != 0);
+            this.playerAnimator.SetFloat("HorizontalInput", horizontalInput);
+
         }
     }
 }
