@@ -37,7 +37,6 @@ namespace _2d
 
             this.playerAnimator.SetBool("HasHorizontalInput", horizontalInput != 0);
             this.playerAnimator.SetFloat("HorizontalInput", horizontalInput);
-
         }
     }
 }
