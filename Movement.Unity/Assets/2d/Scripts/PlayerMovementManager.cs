@@ -22,11 +22,53 @@ namespace _2d
         [SerializeField]
         private Animator playerAnimator;
 
+        IEnumerator Jump()
+        {
+            var verticalVelocity = JumpSpeed;
+            var gravity = -9.8f;
+            var initialHeight = this.Player.transform.position.y;
+            // this.playerAnimator.SetBool("IsJumping", true);
+            //Up
+            yield return new WaitUntil(delegate ()
+            {
+                this.Player.position += this.Player.transform.up * verticalVelocity * Time.deltaTime;
+                verticalVelocity += gravity * Time.deltaTime;
+                //Clamp vertical velocity to 0 if it becomes negative
+                if (verticalVelocity < 0) verticalVelocity = 0;
+                return verticalVelocity == 0;
+            });
+
+            // this.playerAnimator.SetBool("IsFalling", true);
+            //Down
+            yield return new WaitUntil(delegate ()
+            {
+                this.Player.position += this.Player.transform.up * verticalVelocity * Time.deltaTime;
+                verticalVelocity += gravity * Time.deltaTime;
+                var currentHeight = this.Player.position.y;
+                //Clamp player fall to the initial height
+                if (currentHeight < initialHeight)
+                {
+                    this.Player.position = new Vector3(this.Player.position.x, initialHeight, this.Player.position.z);
+                }
+                return Player.position.y == initialHeight;
+            });
+
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// If the player is jumping or falling, this animation should take precedence over the horizontal input
+        /// </summary>
         // Update is called once per frame
         void Update()
         {
+
+            if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine(Jump());
+
             //a float value contained in [-1, 1]
             var horizontalInput = Input.GetAxis("Horizontal");
+
             var horizontalMovement = this.Speed * horizontalInput * Time.deltaTime;
             this.Player.position += this.Player.right * horizontalMovement;
 
