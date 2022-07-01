@@ -33,7 +33,7 @@ namespace _2d
 
             //Up
             yield return new WaitUntil(
-                delegate ()
+                delegate()
                 {
                     this.Player.position +=
                         this.Player.transform.up * verticalVelocity * Time.deltaTime;
@@ -47,10 +47,9 @@ namespace _2d
                 }
             );
 
-
             //Down
             yield return new WaitUntil(
-                delegate ()
+                delegate()
                 {
                     this.Player.position +=
                         this.Player.transform.up * verticalVelocity * Time.deltaTime;
